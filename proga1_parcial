@@ -1,0 +1,48 @@
+def acepta_cadena(cadena):
+    estado = 0  # estado inicial
+
+    for c in cadena:
+        # Validar alfabeto Σ = {0,1}
+        if c not in {'0', '1'}:
+            return False
+
+        if estado == 0:
+            if c == '0':
+                estado = 1
+            else:  # c == '1'
+                estado = 2
+
+        elif estado == 1:
+            if c == '1':
+                estado = 3
+            else:
+                return False
+
+        elif estado == 2:
+            if c == '0':
+                estado = 3
+            else:
+                return False
+
+        elif estado == 3:
+            if c == '1':
+                estado = 4
+            else:  # c == '0'
+                estado = 1
+
+        elif estado == 4:
+            if c == '1':
+                estado = 3
+            else:  # c == '0'
+                estado = 1
+
+    return estado == 3 or estado == 4
+
+
+# ===== PROGRAMA PRINCIPAL =====
+cadena = input("Ingresa una cadena con 0 y 1: ")
+
+if acepta_cadena(cadena):
+    print("Cadena ACEPTADA ✅")
+else:
+    print("Cadena RECHAZADA ❌")
