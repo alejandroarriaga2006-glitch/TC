@@ -1,0 +1,53 @@
+def acepta_cadena(cadena):
+    estado = 0  
+    # 0: par de a, último NO fue b
+    # 1: impar de a, último NO fue b
+    # 2: último fue b
+    # 3: estado muerto (aparece "bc")
+
+    for c in cadena:
+        # Validar alfabeto
+        if c not in {'a', 'b', 'c'}:
+            return False, "Símbolo inválido"
+
+        if estado == 0:
+            if c == 'a':
+                estado = 1
+            elif c == 'b':
+                estado = 2
+
+        elif estado == 1:
+            if c == 'a':
+                estado = 0
+            elif c == 'b':
+                estado = 2
+
+        elif estado == 2:
+            if c == 'c':   # aparece "bc"
+                estado = 3
+            elif c == 'a':
+                estado = 1
+            elif c == 'b':
+                estado = 2
+
+        elif estado == 3:
+            return False, "Aparece la subcadena 'bc'"
+
+    # Resultado final
+    if estado == 0:
+        return True, "Número PAR de 'a'"
+    else:
+        return False, "Número IMPAR de 'a'"
+
+
+# ===== PROGRAMA PRINCIPAL =====
+cadena = input("Ingresa una cadena con a, b y c: ")
+
+acepta, mensaje = acepta_cadena(cadena)
+
+if acepta:
+    print("Cadena ACEPTADA ✅")
+else:
+    print("Cadena RECHAZADA ❌")
+
+print("Resultado:", mensaje)
