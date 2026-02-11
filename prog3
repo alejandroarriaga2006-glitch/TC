@@ -1,0 +1,47 @@
+def acepta_cadena(cadena):
+    ceros = 0
+    unos = 0
+
+    # Validar alfabeto y contar
+    for c in cadena:
+        if c not in {'0', '1'}:
+            return False, "Símbolo inválido (solo 0 y 1)"
+        if c == '0':
+            ceros += 1
+        else:
+            unos += 1
+
+    # CASO 1: no hay 1's
+    if unos == 0:
+        if ceros % 2 == 0:
+            return True, "No hay 1's y el número de 0's es PAR"
+        else:
+            return False, "No hay 1's pero el número de 0's es IMPAR"
+
+    # CASO 2: número PAR de 1's (>0)
+    if unos % 2 == 0:
+        if ceros % 2 == 1:
+            return True, "Número PAR de 1's y termina con número IMPAR de 0's"
+        else:
+            return False, "Número PAR de 1's pero termina con número PAR de 0's"
+
+    # CASO 3: número IMPAR de 1's
+    else:
+        if ceros % 2 == 0:
+            return True, "Número IMPAR de 1's y termina con número PAR de 0's"
+        else:
+            return False, "Número IMPAR de 1's pero termina con número IMPAR de 0's"
+
+
+# ===== PROGRAMA PRINCIPAL =====
+cadena = input("Ingresa una cadena con 0 y 1: ")
+
+acepta, mensaje = acepta_cadena(cadena)
+
+if acepta:
+    print("Cadena ACEPTADA ✅")
+else:
+    print("Cadena RECHAZADA ❌")
+
+print("Resultado:", mensaje)
+
